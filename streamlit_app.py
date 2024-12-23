@@ -39,7 +39,7 @@ edited_df = st.data_editor(
     on_selection_change=handle_selection_change,
     )
 
-def handle_selection_change(selected_rows):
+def handle_selection_change(selected_rows=0):
     if selected_rows:
         selected_uuid = selected_rows['uuid'][0]  # Assuming 'uuid' column exists
         # Call order_details to fetch details for the selected uuid
