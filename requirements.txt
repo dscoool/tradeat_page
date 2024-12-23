@@ -1,8 +1,9 @@
 streamlit
 Pyjwt 
 uuid
-hashlib
 time
 urllib
 requests
 json
+Cython
+pyarrow
