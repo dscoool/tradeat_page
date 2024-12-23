@@ -7,15 +7,6 @@ import streamlit as st
 import bithumb_order
 
 
-def handle_selection_change(selected_rows=0):
-    if selected_rows:
-        selected_uuid = selected_rows['uuid'][0]  # Assuming 'uuid' column exists
-        # Call order_details to fetch details for the selected uuid
-        order_details, order_detail_code = bit.order_details(selected_uuid)
-        # ... display order details as before
-
-
-
 # Show app title and description.
 st.set_page_config(page_title="Tradeat", page_icon="")
 st.title("Tradeat")
@@ -44,21 +35,20 @@ edited_df = st.data_editor(
     # use_container_width=True,
     hide_index=False,
     column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
-    # column_config={}
-    on_selection_change=handle_selection_change()
+    column_config={
+        "selected": st.column_config.RadioboxColumn(
+            "Select", default=False
+        ),}
     )
 
-# if 'uuid' in edited_df.selected_rows:
-#         selected_uuid = edited_df.selected_rows['uuid'][0]
-#         # Call order_details to fetch details for the selected uuid
-#         order_details, order_detail_code = bit.order_details(selected_uuid)
-#         # Display order details if successful
-#         if order_detail_code == 200:
-#             st.write("## Order Details")
-#             st.json(order_details)  # Display order details as JSON
-#         else:
-#             st.error(f"Error fetching order details: {order_detail_code}")
-
+selected_rows = []
+for index, row in edited_df.iterrows():
+    if row["selected"]:
+        selected_uuid = row["uuid"]
+        selected_rows.append(selected_uuid)
+        # Call order_details for each selected uuid
+        order_details, order_detail_code = bit.order_details(selected_uuid)
+        # ... display order details as before
 
 ## Order available
 st.header("Order available")
