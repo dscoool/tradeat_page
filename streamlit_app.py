@@ -23,8 +23,7 @@ st.header("Orders")
 market_list = ['KRW-BTG', 'KRW-XRP', 
                'KRW-BTC', 'KRW-ETH', 
                'KRW-ETC',
-               'KRW-BTC', 'BTC-XRP'
-               ,'ALL']
+               'KRW-BTC', 'BTC-XRP']
 selected_market = st.selectbox(market_list)
 market = selected_market  # Update market based on selection
 
