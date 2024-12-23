@@ -36,17 +36,26 @@ edited_df = st.data_editor(
     hide_index=False,
     column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
     column_config={}
+    on_selection_change=handle_selection_change,
     )
-if 'uuid' in edited_df.selected_rows:
-        selected_uuid = edited_df.selected_rows['uuid'][0]
+
+def handle_selection_change(selected_rows):
+    if selected_rows:
+        selected_uuid = selected_rows['uuid'][0]  # Assuming 'uuid' column exists
         # Call order_details to fetch details for the selected uuid
         order_details, order_detail_code = bit.order_details(selected_uuid)
-        # Display order details if successful
-        if order_detail_code == 200:
-            st.write("## Order Details")
-            st.json(order_details)  # Display order details as JSON
-        else:
-            st.error(f"Error fetching order details: {order_detail_code}")
+        # ... display order details as before
+
+# if 'uuid' in edited_df.selected_rows:
+#         selected_uuid = edited_df.selected_rows['uuid'][0]
+#         # Call order_details to fetch details for the selected uuid
+#         order_details, order_detail_code = bit.order_details(selected_uuid)
+#         # Display order details if successful
+#         if order_detail_code == 200:
+#             st.write("## Order Details")
+#             st.json(order_details)  # Display order details as JSON
+#         else:
+#             st.error(f"Error fetching order details: {order_detail_code}")
 
 
 ## Order available
