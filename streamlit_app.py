@@ -16,17 +16,18 @@ st.write(
     """
 )
 
+### Order Status
+st.header("Orders")
+# Add dropdown to select market
 ## Load bithumb_order 
 market_list = ['KRW-BTG', 'KRW-XRP', 
                'KRW-BTC', 'KRW-ETH', 
                'KRW-ETC',
                'KRW-BTC', 'BTC-XRP'
                ,'ALL']
-### Order Status
-st.header("Orders")
-# Add dropdown to select market
 selected_market = st.selectbox("Cryptocurrency", market_list)
 market = selected_market  # Update market based on selection
+
 bit = bithumb_order.Bitthumb()
 order_status, result_code = bit.order_status(market)
 st.session_state.df = order_status
