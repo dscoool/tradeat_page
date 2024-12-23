@@ -8,11 +8,12 @@ import json
 import pandas as pd
 
 class Bitthumb:
-    def __init__(self):
+    def __init__(self, market):
         self.accessKey = 'b6692bb7bea03e2b73c802ca599f000cd09bdb55603605'
         self.secretKey = 'MDMxZmZlODI0ZmEwYTQxMDI3YmFiMGFlM2UyMDAwYjgwNGNlNWU5ZDAwMGFkNzk5ZGY1NzYxMzQwY2JkOQ=='
         self.apiUrl = 'https://api.bithumb.com'
         self.payload = self.generate_payload()
+        self.market=market
         # if self.market == 'ALL':
         #     self.market = pd.NULL
             
@@ -32,6 +33,36 @@ class Bitthumb:
         payload.update({'query_hash': query_hash, 'query_hash_alg': 'SHA512'})
         jwt_token = jwt.encode(payload, self.secretKey)
         return 'Bearer {}'.format(jwt_token)
+    
+    def order_available(self):
+        param = dict( market=self.market )
+        query = urlencode(param).encode()
+        hash = hashlib.sha512()
+        hash.update(query)
+        query_hash = hash.hexdigest()
+        payload = {
+            'access_key': self.accessKey,
+            'nonce': str(uuid.uuid4()),
+            'timestamp': round(time.time() * 1000), 
+            'query_hash': query_hash,
+            'query_hash_alg': 'SHA512',
+        }   
+        jwt_token = jwt.encode(payload, self.secretKey)
+        authorization_token = 'Bearer {}'.format(jwt_token)
+        headers = {
+            'Authorization': authorization_token
+        }
+
+        try:
+            # Call API
+            response = requests.get(self.apiUrl + '/v1/orders/chance', params=param, headers=headers)
+            # handle to success or fail
+            r= self.json2df(response.json())
+            asset_available_code = response.status_code)
+        except Exception as err:
+            # handle exception
+            asset_available_code = err
+        return r, asset_available_code
     
     def order_status(self,market):
         # Set API parameters

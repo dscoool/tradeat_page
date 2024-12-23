@@ -25,10 +25,10 @@ market_list = ['KRW-BTG', 'KRW-XRP',
                'KRW-ETC',
                'KRW-BTC', 'BTC-XRP'
                ,'ALL']
-selected_market = st.selectbox("Cryptocurrency", market_list)
+selected_market = st.selectbox(market_list)
 market = selected_market  # Update market based on selection
 
-bit = bithumb_order.Bitthumb()
+bit = bithumb_order.Bitthumb(market)
 order_status, result_code = bit.order_status(market)
 st.session_state.df = order_status
 edited_df = st.data_editor(
@@ -50,6 +50,32 @@ edited_df = st.data_editor(
             required=True,
         ),
     })
+
+## Order available
+st.header("Orders")
+r, asset_available_code = bit.asset_available()
+st.session_state.df = r
+edited_df = st.data_editor(
+    st.session_state.df,
+    # use_container_width=True,
+    hide_index=False,
+    # column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
+    column_config={
+        "Status": st.column_config.SelectboxColumn(
+            "Status",
+            help="Ticket status",
+            options=["Open", "In Progress", "Closed"],
+            required=True,
+        ),
+        "Priority": st.column_config.SelectboxColumn(
+            "Priority",
+            help="Priority",
+            options=["High", "Medium", "Low"],
+            required=True,
+        ),
+    })
+
+
 
 ## Asset Status
 asset_status, asset_code = bit.asset_status()
