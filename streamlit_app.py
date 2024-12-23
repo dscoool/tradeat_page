@@ -51,17 +51,6 @@ edited_df = st.data_editor(
 
     # Apply custom CSS for table width and font size
 
-st.write(f"""
-<style>
-#rootContainer .stDataEditor > div > div > div > div > table {{
-    width: 1200px; /* Set table width to 1200px */
-}}
-#rootContainer .stDataEditor > div > div > div > div > table td {{
-    font-size: 12px; /* Set font size to 12px */
-}}
-</style>
-""")
-
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
 
