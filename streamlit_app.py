@@ -7,23 +7,6 @@ import pandas as pd
 import streamlit as st
 import bithumb_order
 
-
-def get_ip_address():
-  """
-  Gets the IP address of the current machine.
-
-  Returns:
-    str: The IP address as a string, or "Unknown" if it cannot be determined.
-  """
-  try:
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    return ip_address
-  except Exception as e:
-    print(f"Error getting IP address: {e}")
-    return "Unknown"
-
-
 # Show app title and description.
 st.set_page_config(page_title="Tradeat", page_icon="")
 st.title("Tradeat")
@@ -33,10 +16,6 @@ st.write(
     """
 )
 
-
-## print IP address
-ip = get_ip_address()
-st.write(f"Your IP address is: {ip}")
 
 ## Load bithumb_order 
 market='KRW-XRP'
