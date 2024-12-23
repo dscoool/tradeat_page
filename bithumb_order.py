@@ -190,7 +190,7 @@ class Bitthumb:
         return response.json()
 
 if __name__ == "__main__":
-    # market='KRW-XRP'
+    market=''
     bit = Bitthumb()
     # print(str(market)+': '+str(bit.current_price(market)))
 
