@@ -18,7 +18,7 @@ st.write(
 
 
 ## Load bithumb_order 
-market=['KRW-BTG']
+market='KRW-BTG'
 bit = bithumb_order.Bitthumb()
 
 
@@ -27,6 +27,26 @@ order_status, result_code = bit.order_status(market)
 st.write(order_status)
 st.session_state.df = order_status
 st.dataframe(order_status, use_container_width=True, hide_index=True)
+
+
+edited_df = st.data_editor(
+    st.session_state.df,
+    use_container_width=True,
+    hide_index=True,
+    column_config={
+        "Status": st.column_config.SelectboxColumn(
+            "Status",
+            help="Ticket status",
+            options=["Open", "In Progress", "Closed"],
+            required=True,
+        ),
+        "Priority": st.column_config.SelectboxColumn(
+            "Priority",
+            help="Priority",
+            options=["High", "Medium", "Low"],
+            required=True,
+        ),
+    },
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
