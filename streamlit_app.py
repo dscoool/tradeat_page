@@ -26,13 +26,13 @@ bit = bithumb_order.Bitthumb()
 order_status, result_code = bit.order_status(market)
 st.write(order_status)
 st.session_state.df = order_status
-st.dataframe(order_status, use_container_width=True, hide_index=True)
-
+# st.dataframe(order_status, use_container_width=True, hide_index=True)
 
 edited_df = st.data_editor(
     st.session_state.df,
     use_container_width=True,
     hide_index=True,
+    column_order=["created_at", "uuid", "market", "state", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume'], 
     column_config={
         "Status": st.column_config.SelectboxColumn(
             "Status",
