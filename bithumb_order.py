@@ -62,7 +62,7 @@ class Bitthumb:
         except Exception as err:
             # handle exception
             asset_available_code = err
-        return r, asset_available_code
+        return response.json(), asset_available_code
     
     def order_status(self,market):
         # Set API parameters
