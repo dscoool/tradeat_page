@@ -22,22 +22,19 @@ market_list = ['KRW-BTG', 'KRW-XRP',
                'KRW-ETC',
                'KRW-BTC', 'BTC-XRP'
                ,'ALL']
+### Order Status
+st.header("Orders")
 # Add dropdown to select market
 selected_market = st.selectbox("Cryptocurrency", market_list)
 market = selected_market  # Update market based on selection
-# market=market_list[0]
-
 bit = bithumb_order.Bitthumb()
-
-### Order Status
-st.header("Orders")
 order_status, result_code = bit.order_status(market)
 st.session_state.df = order_status
 edited_df = st.data_editor(
     st.session_state.df,
-    use_container_width=True,
-    hide_index=True,
-    column_order=["created_at", "uuid", "market", "state", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume'], 
+    # use_container_width=True,
+    hide_index=False,
+    column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
     column_config={
         "Status": st.column_config.SelectboxColumn(
             "Status",
@@ -63,10 +60,10 @@ st.write(asset_code)
 
 asset_df = st.data_editor(
     st.session_state.df_asset,
-    use_container_width=True,
-    hide_index=True,
+    # use_container_width=True,
+    hide_index=False,
     column_order=['unit_currency',"currency", 
-                  "avg_buy_price", "locked","balance" ]
+                  "avg_buy_price", "locked","balance" ],
     column_config={
         "Status": st.column_config.SelectboxColumn(
             "Status",
