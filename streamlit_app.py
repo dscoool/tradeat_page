@@ -53,26 +53,27 @@ edited_df = st.data_editor(
 ## Order available
 st.header("Order available")
 r, asset_available_code = bit.order_available()
-st.session_state.df = r
-edited_df = st.data_editor(
-    st.session_state.df,
-    # use_container_width=True,
-    hide_index=False,
-    # column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
-    column_config={
-        "Status": st.column_config.SelectboxColumn(
-            "Status",
-            help="Ticket status",
-            options=["Open", "In Progress", "Closed"],
-            required=True,
-        ),
-        "Priority": st.column_config.SelectboxColumn(
-            "Priority",
-            help="Priority",
-            options=["High", "Medium", "Low"],
-            required=True,
-        ),
-    })
+st.write(r)
+# st.session_state.df = r
+# edited_df = st.data_editor(
+#     st.session_state.df,
+#     # use_container_width=True,
+#     hide_index=False,
+#     # column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
+#     column_config={
+#         "Status": st.column_config.SelectboxColumn(
+#             "Status",
+#             help="Ticket status",
+#             options=["Open", "In Progress", "Closed"],
+#             required=True,
+#         ),
+#         "Priority": st.column_config.SelectboxColumn(
+#             "Priority",
+#             help="Priority",
+#             options=["High", "Medium", "Low"],
+#             required=True,
+#         ),
+#     })
 
 
 
