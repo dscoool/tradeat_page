@@ -59,10 +59,10 @@ edited_df = st.data_editor(
 
 ## Asset Status
 st.header("Assets")
-order_status, result_code = bit.order_status(market)
-st.session_state.df_asset = order_status
+asset_status, result_code = bit.order_status(market)
+st.session_state.df_asset = asset_status
 
-st.write(order_status)
+st.write(asset_status)
 
 asset_df = st.data_editor(
     st.session_state.df_asset,
