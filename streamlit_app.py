@@ -52,7 +52,7 @@ edited_df = st.data_editor(
     })
 
 ## Order available
-st.header("Orders")
+st.header("Order available")
 r, asset_available_code = bit.asset_available()
 st.session_state.df = r
 edited_df = st.data_editor(

@@ -58,7 +58,7 @@ class Bitthumb:
             response = requests.get(self.apiUrl + '/v1/orders/chance', params=param, headers=headers)
             # handle to success or fail
             r= self.json2df(response.json())
-            asset_available_code = response.status_code)
+            asset_available_code = response.status_code
         except Exception as err:
             # handle exception
             asset_available_code = err
