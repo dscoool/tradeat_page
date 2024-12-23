@@ -13,8 +13,8 @@ class Bitthumb:
         self.secretKey = 'MDMxZmZlODI0ZmEwYTQxMDI3YmFiMGFlM2UyMDAwYjgwNGNlNWU5ZDAwMGFkNzk5ZGY1NzYxMzQwY2JkOQ=='
         self.apiUrl = 'https://api.bithumb.com'
         self.payload = self.generate_payload()
-        if self.market == 'ALL':
-            self.market = pd.NULL
+        # if self.market == 'ALL':
+        #     self.market = pd.NULL
             
     def generate_payload(self):
         payload = {
