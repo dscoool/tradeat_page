@@ -21,9 +21,9 @@ market_list = ['KRW-BTG', 'KRW-XRP',
                'KRW-BTC', 'KRW-ETH', 
                'KRW-ETC',
                'KRW-BTC', 'BTC-XRP'
-               ]
+               ,'ALL']
 # Add dropdown to select market
-selected_market = st.selectbox("Select Market", market_list)
+selected_market = st.selectbox("Cryptocurrency", market_list)
 market = selected_market  # Update market based on selection
 # market=market_list[0]
 
@@ -54,16 +54,19 @@ edited_df = st.data_editor(
     })
 
 ## Asset Status
-st.header("Assets")
 asset_status, asset_code = bit.asset_status()
 st.session_state.df_asset = asset_status
-# st.write(asset_status)
+
+st.header("Assets")
+st.write(asset_code)
+
 
 asset_df = st.data_editor(
     st.session_state.df_asset,
     use_container_width=True,
     hide_index=True,
-    column_order=["currency", "balance", "locked", "avg_buy_price", 'unit_currency'], 
+    column_order=['unit_currency',"currency", 
+                  "avg_buy_price", "locked","balance" ]
     column_config={
         "Status": st.column_config.SelectboxColumn(
             "Status",
@@ -78,7 +81,6 @@ asset_df = st.data_editor(
             required=True,
         ),
     })
-st.write(asset_code)
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:

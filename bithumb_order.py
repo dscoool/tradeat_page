@@ -13,7 +13,9 @@ class Bitthumb:
         self.secretKey = 'MDMxZmZlODI0ZmEwYTQxMDI3YmFiMGFlM2UyMDAwYjgwNGNlNWU5ZDAwMGFkNzk5ZGY1NzYxMzQwY2JkOQ=='
         self.apiUrl = 'https://api.bithumb.com'
         self.payload = self.generate_payload()
-
+        if self.market == 'ALL':
+            self.market = 
+            
     def generate_payload(self):
         payload = {
             'access_key': self.accessKey,
@@ -40,7 +42,6 @@ class Bitthumb:
         query = urlencode(param)
         # uuid_query = '&'.join([f'uuids[]={uuid}' for uuid in uuids])
         # query = query + "&" + uuid_query
-
         # Generate access token
         hash = hashlib.sha512()
         hash.update(query.encode())
@@ -171,23 +172,22 @@ class Bitthumb:
         return order_receipt, result_code
     
     def asset_status(self):
-        # Generate access token
         # payload = self.payload
         jwt_token = jwt.encode(self.payload, self.secretKey)
         authorization_token = 'Bearer {}'.format(jwt_token)
         headers = {
-        'Authorization': authorization_token
+            'Authorization': authorization_token
         }
-
         try:
             # Call API
-            response = requests.get(self.apiUrl + '/v1/accounts', headers=headers)
+            response = requests.get(self.apiUrl + '/v1/accounts', 
+                                    headers=headers)
             # handle to success or fail
             result_code=response.status_code
             asset_status = response.json()
         except Exception as err:
             # handle exception
-            code=err
+            result_code=err
         return self.json2df(asset_status), result_code
     
     def current_price(self, market):
