@@ -5,6 +5,7 @@ import time
 from urllib.parse import urlencode
 import requests
 import json
+import pandas as pd
 
 class Bitthumb:
     def __init__(self):
@@ -66,8 +67,14 @@ class Bitthumb:
             # handle exception
             order_receipt="##### Error occured!"
             result_code=err
-        return order_receipt, result_code
-
+        return self.json2df(order_receipt), result_code
+    
+    def json2df(self, json_data):
+        if isinstance(json_data, str):
+            json_data = json.loads(json_data)
+        df = pd.DataFrame(json_data)
+        return df
+    
     def long_order(self, market, volume, price, ord_type="limit"):
         # Set API parameters
         # requestBody = dict( market='KRW-BTG', side='bid', volume='55.0', price=23000, ord_type='limit' )
