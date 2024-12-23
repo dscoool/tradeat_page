@@ -64,6 +64,7 @@ class Bitthumb:
             order_receipt = response.json()
         except Exception as err:
             # handle exception
+            order_receipt="##### Error occured!"
             result_code=err
         return order_receipt, result_code
 
