@@ -35,20 +35,9 @@ edited_df = st.data_editor(
     # use_container_width=True,
     hide_index=False,
     column_order=["market", "uuid", "created_at", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume',"state"], 
-    column_config={
-        "selected": st.column_config.RadioboxColumn(
-            "Select", default=False
-        ),}
+
     )
 
-selected_rows = []
-for index, row in edited_df.iterrows():
-    if row["selected"]:
-        selected_uuid = row["uuid"]
-        selected_rows.append(selected_uuid)
-        # Call order_details for each selected uuid
-        order_details, order_detail_code = bit.order_details(selected_uuid)
-        # ... display order details as before
 
 ## Order available
 st.header("Order available")
