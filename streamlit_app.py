@@ -46,7 +46,7 @@ edited_df = st.data_editor(
             options=["High", "Medium", "Low"],
             required=True,
         ),
-    },
+    })
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
