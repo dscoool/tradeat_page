@@ -57,14 +57,13 @@ edited_df = st.data_editor(
 st.header("Assets")
 asset_status, asset_code = bit.asset_status()
 st.session_state.df_asset = asset_status
-st.write(asset_code)
-st.write(asset_status)
+# st.write(asset_status)
 
 asset_df = st.data_editor(
     st.session_state.df_asset,
     use_container_width=True,
     hide_index=True,
-    # column_order=["created_at", "uuid", "market", "state", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume'], 
+    column_order=["currency", "balance", "locked", "avg_buy_price", 'unit_currency'], 
     column_config={
         "Status": st.column_config.SelectboxColumn(
             "Status",
@@ -79,6 +78,7 @@ asset_df = st.data_editor(
             required=True,
         ),
     })
+st.write(asset_code)
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
