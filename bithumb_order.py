@@ -30,7 +30,7 @@ class Bitthumb:
         jwt_token = jwt.encode(payload, self.secretKey)
         return 'Bearer {}'.format(jwt_token)
     
-    def order_status(self,market):
+    def order_status(self,market=""):
         # Set API parameters
         param = dict( market=market, limit=100, page=1, order_by='desc' )
         uuids = [
