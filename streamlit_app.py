@@ -25,6 +25,8 @@ bit = bithumb_order.Bitthumb()
 ### Order Status
 order_status, result_code = bit.order_status(market)
 st.write(order_status)
+st.session_state.df = order_status
+st.dataframe(order_status, use_container_width=True, hide_index=True)
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
