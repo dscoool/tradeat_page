@@ -14,7 +14,7 @@ class Bitthumb:
         self.apiUrl = 'https://api.bithumb.com'
         self.payload = self.generate_payload()
         if self.market == 'ALL':
-            self.market = 
+            self.market = pd.NULL
             
     def generate_payload(self):
         payload = {
