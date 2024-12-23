@@ -18,12 +18,12 @@ st.write(
 
 
 ## Load bithumb_order 
-market='KRW-BTG'
+market=['KRW-BTG','KRW-XRP']
 bit = bithumb_order.Bitthumb()
 
 
 ### Order Status
-order_status, result_code = bit.order_status()
+order_status, result_code = bit.order_status(market)
 st.write(order_status)
 
 # # Create a random Pandas dataframe with existing tickets.
