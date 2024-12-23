@@ -1,6 +1,5 @@
 streamlit
-jwt
-jwt 
+Pyjwt 
 uuid
 hashlib
 time
