@@ -23,7 +23,7 @@ bit = bithumb_order.Bitthumb()
 
 
 ### Order Status
-order_status, result_code = bit.order_status(market)
+order_status, result_code = bit.order_status()
 st.write(order_status)
 
 # # Create a random Pandas dataframe with existing tickets.
