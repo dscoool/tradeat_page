@@ -16,13 +16,21 @@ st.write(
     """
 )
 
-
 ## Load bithumb_order 
-market='KRW-BTG'
+market_list = ['KRW-BTG', 'KRW-XRP', 
+               'KRW-BTC', 'KRW-ETH', 
+               'KRW-ETC',
+               'KRW-BTC', 'BTC-XRP'
+               ]
+# Add dropdown to select market
+selected_market = st.selectbox("Select Market", market_list)
+market = selected_market  # Update market based on selection
+# market=market_list[0]
+
 bit = bithumb_order.Bitthumb()
 
-
 ### Order Status
+st.header("Orders")
 order_status, result_code = bit.order_status(market)
 st.session_state.df = order_status
 # st.write(order_status)
@@ -49,7 +57,30 @@ edited_df = st.data_editor(
         ),
     })
 
-    # Apply custom CSS for table width and font size
+## Asset Status
+st.header("Assets")
+order_status, result_code = bit.order_status(market)
+st.session_state.df_asset = order_status
+
+asset_df = st.data_editor(
+    st.session_state.df_asset,
+    use_container_width=True,
+    hide_index=True,
+    column_order=["created_at", "uuid", "market", "state", 'price', 'volume', 'remaing_volume','reserved_fee','locked','executed_volume'], 
+    column_config={
+        "Status": st.column_config.SelectboxColumn(
+            "Status",
+            help="Ticket status",
+            options=["Open", "In Progress", "Closed"],
+            required=True,
+        ),
+        "Priority": st.column_config.SelectboxColumn(
+            "Priority",
+            help="Priority",
+            options=["High", "Medium", "Low"],
+            required=True,
+        ),
+    })
 
 # # Create a random Pandas dataframe with existing tickets.
 # if "df" not in st.session_state:
@@ -132,7 +163,6 @@ edited_df = st.data_editor(
 #     st.session_state.df = pd.concat([df_new, st.session_state.df], axis=0)
 
 # Show section to view and edit existing tickets in a table.
-st.header("Orders")
 # st.write(f"Number of tickets: `{len(st.session_state.df)}`")
 
 # st.info(

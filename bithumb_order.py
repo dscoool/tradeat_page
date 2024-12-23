@@ -188,7 +188,8 @@ class Bitthumb:
         except Exception as err:
             # handle exception
             code=err
-        return asset_status, result_code
+        return self.json2df(asset_status), result_code
+    
     def current_price(self, market):
         url = "https://api.bithumb.com/v1/ticker?markets="+market
         headers = {"accept": "application/json"}
