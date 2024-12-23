@@ -34,6 +34,34 @@ class Bitthumb:
         jwt_token = jwt.encode(payload, self.secretKey)
         return 'Bearer {}'.format(jwt_token)
     
+    def order_details(self, uuid):
+        # Set API parameters
+        param = dict( uuid=uuid )
+        # Generate access token
+        query = urlencode(param).encode()
+        hash = hashlib.sha512()
+        hash.update(query)
+        query_hash = hash.hexdigest()
+        payload = {
+            'access_key': self.accessKey,
+            'nonce': str(uuid.uuid4()),
+            'timestamp': round(time.time() * 1000), 
+            'query_hash': query_hash,
+            'query_hash_alg': 'SHA512',
+        }   
+        jwt_token = jwt.encode(payload, self.secretKey)
+        authorization_token = 'Bearer {}'.format(jwt_token)
+        headers = {
+        'Authorization': authorization_token
+        }
+        try:
+            response = requests.get(self.apiUrl + '/v1/order', params=param, headers=headers)
+            order_detail_code = response.status_code
+            order_details = response.json()
+        except Exception as err:
+            order_detail_code = err
+        return order_details,order_detail_code
+
     def order_available(self):
         param = dict( market=self.market )
         query = urlencode(param).encode()
