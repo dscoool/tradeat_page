@@ -18,7 +18,7 @@ st.write(
 
 
 ## Load bithumb_order 
-market='KRW-XRP'
+market=''
 bit = bithumb_order.Bitthumb()
 
 
