@@ -213,7 +213,7 @@ if __name__ == "__main__":
     #                     ord_type='limit')
 
     # ## Log transactions
-    print(str(result_code)+' | '+str(receipt)) 
+    print(str(result_code)+' | '+ str(receipt)) 
     ## LOG HERE
     
     ## Asset Status
